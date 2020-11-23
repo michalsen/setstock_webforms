@@ -1,0 +1,36 @@
+<?php
+/**
+ *  @file
+ *  CNCEx Webform Submissions
+ */
+
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Cache\Cache;
+use Drupal\node\Entity\Node;
+
+
+function cncex_webforms_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+
+  // REQUEST A QUOTE
+  if(isset($form['#webform_id']) &&
+     $form['#webform_id'] == 'request_a_quote') {
+
+    // GET PATH OF NODE THAT LOADED THE FORM
+    $path = \Drupal::service('path.alias_manager')->getPathByAlias($_SERVER['REQUEST_URI']);
+
+    // LOAD THE NODE
+    if(preg_match('/node\/(\d+)/', $path, $matches)) {
+      $node = \Drupal\node\Entity\Node::load($matches[1]);
+    }
+
+    // EXTRACT VALUE OF FIELD
+    if (isset($node) && is_object($node)) {
+      $stockno = $node->field_stock_number->getValue();
+      $form['elements']['stock_no']['#default_value'] = $stockno[0]['value'];
+    }
+
+
+  }
+}
