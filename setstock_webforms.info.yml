@@ -1,5 +1,5 @@
-name: CNCEX Webform
+name: Setstock Webform
 type: module
-description: 'Webform / Salesforce Submission'
+description: 'Webform / Set stock # in webform.'
 core: 8.x
-package: SN Custom
+package: Michalsen
