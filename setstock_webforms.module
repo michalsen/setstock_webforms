@@ -35,7 +35,7 @@ function setstock_webforms_form_alter(&$form, FormStateInterface $form_state, $f
 
       // EXTRACT VALUE OF FIELD
       if (isset($node) && is_object($node)) {
-        $form['elements']['product_title']['#default_value'] = $node->title->value;
+        $form['elements']['product_title']['#default_value'] = $node->get('title')->value;
       }
 
 
